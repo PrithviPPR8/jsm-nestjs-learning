@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, Post, Put, Query, Delete, ParseIntPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query, Delete, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { UserService } from "./user.service";
+import { RoleGuard } from "../guards/role.guard";
 
 // @Get('all')          // GET /user/all
 // @Get(':id')          // GET /user/:id   -dynamic segment
@@ -37,6 +38,7 @@ export class UserController {
         }
 
     @Delete(':id')
+    @UseGuards(RoleGuard)
     deleteUser(@Param('id') id:string) {
         return this.userService.deleteUser(Number(id));
     }
