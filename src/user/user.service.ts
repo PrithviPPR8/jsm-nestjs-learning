@@ -29,7 +29,7 @@ export class UserService {
     findUserById(id: number) {
         this.logger.log(`Finding user ${id}`);
 
-        return this.users.find(user => user.id === id);
+        return this.users.find(user => user.id === id) ?? null;
     }
 
     createUser(createUserDto: CreateUserDto) {
@@ -50,6 +50,7 @@ export class UserService {
         const index = this.users.findIndex(
             user => user.id === id
         )
+        if (index === -1) return null;
 
         this.users[index] = {
             ...this.users[index],
@@ -66,6 +67,7 @@ export class UserService {
         const index = this.users.findIndex(
             user => user.id === id
         )
+        if (index === -1) return null;
 
         this.users.splice(index, 1);
 
